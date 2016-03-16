@@ -1,6 +1,5 @@
 simplePhoneFormatter
 ===============================
-
 ## Object
 The object acts as a simple holder for the list of function methods that can be called.
 ```js
@@ -65,7 +64,7 @@ Takes in a object which contains the broken down phone number
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.dashed({partOne: '777', partTwo: '555', partThree: '6623'});
+    comp.utils.formatPhoneNumber.dashed({areaCode: '777', localCode: '555', lineNumber: '6623'});
 ```
 
 >##### Steps
@@ -73,7 +72,7 @@ Returns the built out string
 
 >Example:
 ```js
-    return pObj.partOne+'-'+pObj.partTwo+'-'+pObj.partThree;
+    return pObj.areaCode+'-'+pObj.localCode+'-'+pObj.lineNumber;
 ```
 ##### Arguments
 - `pObj` - an Object containing the broken down phone number
@@ -90,7 +89,7 @@ Takes in a string which contains your phone number
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.dotted({partOne: '777', partTwo: '555', partThree: '6623'});
+    comp.utils.formatPhoneNumber.dotted({areaCode: '777', localCode: '555', lineNumber: '6623'});
 ```
 
 >##### Steps
@@ -98,7 +97,7 @@ Returns the built out string
 
 >Example:
 ```js
-    return pObj.partOne+'.'+pObj.partTwo+'.'+pObj.partThree;
+    return pObj.areaCode+'.'+pObj.localCode+'.'+pObj.lineNumber;
 ```
 ##### Arguments
 - `pObj` - an Object containing the broken down phone number
@@ -115,7 +114,7 @@ Takes in a string which contains your phone number
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.normalize({partOne: '777', partTwo: '555', partThree: '6623'});
+    comp.utils.formatPhoneNumber.normalize({areaCode: '777', localCode: '555', lineNumber: '6623'});
 ```
 
 >##### Steps
@@ -123,7 +122,7 @@ Returns the built out string
 
 >Example:
 ```js
-    return '('+pObj.partOne+')-'+pObj.partTwo+'-'+pObj.partThree;
+    return '('+pObj.areaCode+')-'+pObj.localCode+'-'+pObj.lineNumber;
 ```
 ##### Arguments
 - `pObj` - an Object containing the broken down phone number
@@ -144,7 +143,7 @@ Takes an object of your broken down phone number along with an object containing
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.longDistance({partOne: '777', partTwo: '555', partThree: '6623'}, {format: 'dotted'});
+    comp.utils.formatPhoneNumber.longDistance({areaCode: '777', localCode: '555', lineNumber: '6623'}, {format: 'dotted'});
 ```
 
 >##### Steps
@@ -182,7 +181,7 @@ Takes an object of your broken down phone number along with an object containing
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.extension({partOne: '777', partTwo: '555', partThree: '6623'}, {format: 'dotted', extension: '1234'});
+    comp.utils.formatPhoneNumber.extension({areaCode: '777', localCode: '555', lineNumber: '6623'}, {format: 'dotted', extension: '1234'});
 ```
 
 >##### Steps
