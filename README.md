@@ -18,7 +18,7 @@ Takes 2 with an optional 3rd param, the first param is your phone number string,
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.format('5559998877', 'normalize');
+    formatPhoneNumber.format('5559998877', 'normalize');
 ```
 
 ##### Arguments
@@ -39,7 +39,7 @@ Takes in a string which contains your phone number
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.uglify('(770)-998-6679');
+    formatPhoneNumber.uglify('(770)-998-6679');
 ```
 
 >##### Steps
@@ -64,7 +64,7 @@ Takes in a object which contains the broken down phone number
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.dashed({areaCode: '777', localCode: '555', lineNumber: '6623'});
+    formatPhoneNumber.dashed({areaCode: '777', localCode: '555', lineNumber: '6623'});
 ```
 
 >##### Steps
@@ -89,7 +89,7 @@ Takes in a string which contains your phone number
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.dotted({areaCode: '777', localCode: '555', lineNumber: '6623'});
+    formatPhoneNumber.dotted({areaCode: '777', localCode: '555', lineNumber: '6623'});
 ```
 
 >##### Steps
@@ -114,7 +114,7 @@ Takes in a string which contains your phone number
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.normalize({areaCode: '777', localCode: '555', lineNumber: '6623'});
+    formatPhoneNumber.normalize({areaCode: '777', localCode: '555', lineNumber: '6623'});
 ```
 
 >##### Steps
@@ -143,7 +143,7 @@ Takes an object of your broken down phone number along with an object containing
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.longDistance({areaCode: '777', localCode: '555', lineNumber: '6623'}, {format: 'dotted'});
+    formatPhoneNumber.longDistance({areaCode: '777', localCode: '555', lineNumber: '6623'}, {format: 'dotted'});
 ```
 
 >##### Steps
@@ -181,7 +181,7 @@ Takes an object of your broken down phone number along with an object containing
 >Example:
 
 ```js
-    comp.utils.formatPhoneNumber.extension({areaCode: '777', localCode: '555', lineNumber: '6623'}, {format: 'dotted', extension: '1234'});
+    formatPhoneNumber.extension({areaCode: '777', localCode: '555', lineNumber: '6623'}, {format: 'dotted', extension: '1234'});
 ```
 
 >##### Steps
