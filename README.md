@@ -1,24 +1,6 @@
 simplePhoneFormatter
 ===============================
 
-## Namespace
-
-Currently it is required that each component possess this declaration to ensure that the component namespace is available for use in the window object.
-
-```js
-if(window.comp == null) window.comp = {};
-if(window.comp.utils == null) window.comp.utils = {};
-```
-This utility is setup to be required by node inside v6 using an anon function
-## How To
-v5
-`comp.utils.formatPhoneNumber.format(phone, format, opts);`
-v6
-```js
-var formatPhone = require(components/utils/formatPhoneNumber/formatPhoneNumber.js);
-formatPhone.format(phone, format, opts);
-```
-
 ## Object
 The object acts as a simple holder for the list of function methods that can be called.
 ```js
