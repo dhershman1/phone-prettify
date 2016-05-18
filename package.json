@@ -1,0 +1,23 @@
+{
+    "name": "phone-prettify",
+    "version": "1.0.0",
+    "description": "Simple phone formatting",
+    "main": "lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dhershman1/phone-prettify"
+    },
+    "bugs": {
+    "url": "https://github.com/dhershman1/phone-prettify/issues"
+  },
+    "keywords": [
+        "format",
+        "phone number",
+        "prettyify",
+        "phone",
+        "phone-prettify"
+    ],
+    "author": "Dustin Hershman <dustinh17@gmail.com>",
+    "license": "UNLICENSED",
+    "private": false
+}
