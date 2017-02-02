@@ -3,6 +3,8 @@ phone-prettify
 
 A really simple phone formatting that can handle most (US) formats and basic extension and long distance style phone numbers.
 
+v1.1.0 - Cleaner and easier to follow code, better structure with es6, and added Tests for the module
+
 ## How-To
 ```js
 const pPretty = require('phone-prettify');

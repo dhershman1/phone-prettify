@@ -15,6 +15,14 @@ test('Return a uglified phone number', t => {
 	t.equal(result, '5554441111', `Returned the uglify format: ${result}`);
 });
 
+test('Return a formatted phone number using numbers', t => {
+	t.plan(1);
+
+	let result = pPretty(5554441111, 'dotted');
+
+	t.equal(result, '555.444.1111', `Returned the formatted number: ${result}`);
+});
+
 test('Return a dotted format phone number', t => {
 	t.plan(1);
 	let result = pPretty('5554441111', 'dotted');
