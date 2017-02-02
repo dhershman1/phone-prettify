@@ -10,7 +10,7 @@
 
 	/**
 	 * Breaks down our phone number string to a 3 piece object
-	 * @memberof Phone-Prettify
+	 * @function breakdownFull
 	 * @param  {string} phone The uglified phone string
 	 * @return {object}       Returns the broken down object
 	 */
@@ -24,7 +24,7 @@
 
 /**
  * Breaks down our phone number string to a 2 piece object
- * @memberof Phone-Prettify
+ * @function breakdownShort
  * @param  {string} phone The uglified phone string
  * @return {object}       Returns the broken down object
  */
@@ -37,7 +37,7 @@
 
 	/**
 	 * Breaks down our phone number string to a 4 piece object
-	 * @memberof Phone-Prettify
+	 * @function breakdownExtension
 	 * @param  {string} phone The uglified phone string
 	 * @return {object}       Returns the broken down object
 	 */
@@ -52,7 +52,7 @@
 
 	/**
 	 * Breaks down our phone number string to a 4 piece object
-	 * @memberof Phone-Prettify
+	 * @function breakdownLongDistance
 	 * @param  {string} phone The uglified phone string
 	 * @return {object}       Returns the broken down object
 	 */
@@ -65,10 +65,6 @@
 		};
 	}
 
-/**
- * Object of formatting functions
- * @type {Object}
- */
 	const methods = {
 		uglify: (phone) => {
 			return phone.replace(/[a-z]\w+|\W/gi, '');
@@ -76,7 +72,7 @@
 
 		/**
 		 * Formats the string to a dashed style
-		 * @memberof Phone-Prettify
+		 * @function dashed
 		 * @param  {string} phone Uglified phone string
 		 * @return {string}       Returns the formatted phone string
 		 */
@@ -93,7 +89,7 @@
 
 		/**
 		 * Formats the string to a normal style
-		 * @memberof Phone-Prettify
+		 * @function normal
 		 * @param  {string} phone Uglified phone string
 		 * @return {string}       Returns the formatted phone string
 		 */
@@ -110,7 +106,7 @@
 
 		/**
 			* Formats the string to a dotted style
-			* @memberof Phone-Prettify
+			* @function dotted
 			* @param  {string} phone Uglified phone string
 			* @return {string}       Returns the formatted phone string
 			*/
@@ -127,7 +123,7 @@
 
 		/**
 			* Formats the string to a long distance with a custom format style
-			* @memberof Phone-Prettify
+			* @function longDistance
 			* @param  {string} phone Uglified phone string
 			* @param {string} format The desired format for the phone number
 			* @return {string}       Returns the formatted phone string
@@ -146,7 +142,7 @@
 
 		/**
 			* Formats the string to an extension with a custom format style
-			* @memberof Phone-Prettify
+			* @function extension
 			* @param  {string} phone Uglified phone string
 			* @param {string} format The desired format for the phone number
 			* @return {string}       Returns the formatted phone string
@@ -166,6 +162,7 @@
 
 /**
  * Our main initiator
+ * @function formatPhoneNumber
  * @param  {string|number} phone    Our custom phone string gets converted to a string if needed
  * @param  {string} format   The main format string to format our phone with
  * @param  {string} exFormat An extra format string used for longDistance and extension format types
