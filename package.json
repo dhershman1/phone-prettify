@@ -1,23 +1,29 @@
 {
-    "name": "phone-prettify",
-    "version": "1.0.4",
-    "description": "Simple phone formatting",
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/dhershman1/phone-prettify"
-    },
-    "bugs": {
-    "url": "https://github.com/dhershman1/phone-prettify/issues"
+  "name": "phone-prettify",
+  "version": "1.1.0",
+  "description": "Simple phone formatting",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/tests.js"
   },
-    "keywords": [
-        "format",
-        "phone number",
-        "prettyify",
-        "phone",
-        "phone-prettify"
-    ],
-    "author": "Dustin Hershman <dustinh17@gmail.com>",
-    "license": "ISC",
-    "private": false
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/dhershman/phone-prettify"
+  },
+  "bugs": {
+    "url": "https://bitbucket.org/dhershman/phone-prettify/issues"
+  },
+  "keywords": [
+    "format",
+    "phone number",
+    "prettyify",
+    "phone",
+    "phone-prettify"
+  ],
+  "author": "Dustin Hershman <dustinh17@gmail.com>",
+  "license": "ISC",
+  "private": false,
+  "devDependencies": {
+    "tape": "^4.6.3"
+  }
 }

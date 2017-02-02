@@ -3,13 +3,13 @@ phone-prettify
 
 A really simple phone formatting that can handle most (US) formats and basic extension and long distance style phone numbers.
 
-##How-To
+## How-To
 ```js
 var phonePrettify = require('phone-prettify');
 phonePrettify('phone', 'format');
 ```
 
-##Usage
+## Usage
 Usage is pretty simple
 ```js
 var phonePrettify = require('phone-prettify');
@@ -17,13 +17,14 @@ var test = phonePrettify('3334449955', 'dashed');
 //test would output: 333-444-9955
 ```
 
-##formats
-`uglify` - Returns string of entered phone with no formatting
-`normalize` - Returns phone number with `(xxx)xxx-xxxx` format
-`dashed`  - Returns phone number with `xxx-xxx-xxxx` format
-`dotted` - Returns phone number with `xxx.xxx.xxxx` format
+## formats
 
-##Auto-formats
+- `uglify` - Returns string of entered phone with no formatting
+- `normalize` - Returns phone number with `(xxx)xxx-xxxx` format
+- `dashed`  - Returns phone number with `xxx-xxx-xxxx` format
+- `dotted` - Returns phone number with `xxx.xxx.xxxx` format
+
+## Auto-formats
 `longDistance` - Returns the phone number in a long distance format
 `extention` - Returns the phone number with a extension style format
 
@@ -35,7 +36,7 @@ phonePrettyify('55577788995567', 'normalize');
 ```
 
 would return `(555)777-8899 x 5567`
-And 
+And
 ```js
 phonePrettyify('15557778899', 'normalize');
 ```
