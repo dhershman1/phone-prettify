@@ -135,7 +135,7 @@
 		longDistance: (phone, format) => {
 			let pObj = breakdownLongDistance(phone);
 
-			if (format) {
+			if (format && format !== 'longDistance') {
 				let formattedPhone = methods[format](`${pObj.areaCode}${pObj.localCode}${pObj.lineNumber}`);
 
 				return `${pObj.countryCode}+${formattedPhone}`;
@@ -154,7 +154,7 @@
 		extension: (phone, format) => {
 			let pObj = breakdownExtension(phone);
 
-			if (format) {
+			if (format && format !== 'extension') {
 				let formattedPhone = methods[format](`${pObj.areaCode}${pObj.localCode}${pObj.lineNumber}`);
 
 				return `${formattedPhone} x ${pObj.extension}`;

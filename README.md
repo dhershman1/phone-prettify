@@ -5,39 +5,45 @@ A really simple phone formatting that can handle most (US) formats and basic ext
 
 ## How-To
 ```js
-var phonePrettify = require('phone-prettify');
-phonePrettify('phone', 'format');
+const pPretty = require('phone-prettify');
+pPretty('phone', 'format');
 ```
 
-## Usage
-Usage is pretty simple
-```js
-var phonePrettify = require('phone-prettify');
-var test = phonePrettify('3334449955', 'dashed');
-//test would output: 333-444-9955
-```
-
-## formats
+## Formats
 
 - `uglify` - Returns string of entered phone with no formatting
 - `normalize` - Returns phone number with `(xxx)xxx-xxxx` format
 - `dashed`  - Returns phone number with `xxx-xxx-xxxx` format
 - `dotted` - Returns phone number with `xxx.xxx.xxxx` format
+- `longDistance` - Returns phone number with `x+xxx-xxx-xxxx` format take an optional param to format with different styles
+- `extension` - Returns phone number with `XXX-XXX-XXXX x XXXX` format takes an optional param to format with different styles
 
-## Auto-formats
-`longDistance` - Returns the phone number in a long distance format
-`extention` - Returns the phone number with a extension style format
+### Using extra params
+The extra parameter is used only for `extension` and `longDistance` and is completely optional, This will format it to one of the other format styles.
 
-Based on length of the phone number some formats are automatically used if these are used and you sent a format these will also use that format when adjusting
-
-in which case
+## Usage
+#### Formatting a regular US phone number:
 ```js
-phonePrettyify('55577788995567', 'normalize');
+const pPretty = require('phone-prettify');
+let result = pPretty('3334449955', 'dashed');
+// Output: 333-444-9955
+```
+#### Formatting works with numbers
+```js
+const pPretty = require('phone-prettify');
+let result = pPretty(3334449955, 'dashed');
+// Output: 333-444-9955
+```
+#### Formatting a Long distance based phone number:(US)
+```js
+const pPretty = require('phone-prettify');
+let result = pPretty('13334449955', 'longDistance', 'dashed');
+// Output: 1+333-444-9955
 ```
 
-would return `(555)777-8899 x 5567`
-And
+#### Formatting an extension based phone number:
 ```js
-phonePrettyify('15557778899', 'normalize');
+const pPretty = require('phone-prettify');
+let result = pPretty('33344499558989', 'extension', 'dashed');
+// Output: 333-444-9955 x 8989
 ```
-would return `1+(555)777-8899`
