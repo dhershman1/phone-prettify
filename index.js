@@ -66,7 +66,7 @@ function breakdownLongDistance(phone) {
 }
 
 const methods = {
-	uglify: (phone) => {
+	uglify(phone) {
 		return phone.replace(/[a-z]\w+|\W/gi, '');
 	},
 
@@ -76,7 +76,7 @@ const methods = {
 	 * @param  {string} phone Uglified phone string
 	 * @return {string}       Returns the formatted phone string
 	 */
-	dashed: (phone) => {
+	dashed(phone) {
 		let isFull = (phone.length >= 10);
 		let pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
 
@@ -93,7 +93,7 @@ const methods = {
 	 * @param  {string} phone Uglified phone string
 	 * @return {string}       Returns the formatted phone string
 	 */
-	normal: (phone) => {
+	normal(phone) {
 		let isFull = (phone.length >= 10);
 		let pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
 
@@ -110,7 +110,7 @@ const methods = {
 		* @param  {string} phone Uglified phone string
 		* @return {string}       Returns the formatted phone string
 		*/
-	dotted: (phone) => {
+	dotted(phone) {
 		let isFull = (phone.length >= 10);
 		let pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
 
@@ -128,7 +128,7 @@ const methods = {
 		* @param {string} format The desired format for the phone number
 		* @return {string}       Returns the formatted phone string
 		*/
-	longDistance: (phone, format) => {
+	longDistance(phone, format) {
 		let pObj = breakdownLongDistance(phone);
 
 		if (format && format !== 'longDistance') {
@@ -147,7 +147,7 @@ const methods = {
 		* @param {string} format The desired format for the phone number
 		* @return {string}       Returns the formatted phone string
 		*/
-	extension: (phone, format) => {
+	extension(phone, format) {
 		let pObj = breakdownExtension(phone);
 
 		if (format && format !== 'extension') {
