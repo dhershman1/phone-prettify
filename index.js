@@ -8,6 +8,8 @@
  * @module Phone-Prettify
  */
 
+var methods = {};
+
 /**
  * Breaks down our phone number string to a 3 piece object
  * @function breakdownFull
@@ -65,8 +67,8 @@ function breakdownLongDistance(phone) {
 	};
 }
 
-const methods = {
-	uglify(phone) {
+methods = {
+	uglify: function(phone) {
 		return phone.replace(/[a-z]\w+|\W/gi, '');
 	},
 
@@ -76,15 +78,15 @@ const methods = {
 	 * @param  {string} phone Uglified phone string
 	 * @return {string}       Returns the formatted phone string
 	 */
-	dashed(phone) {
-		let isFull = (phone.length >= 10);
-		let pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
+	dashed: function(phone) {
+		var isFull = (phone.length >= 10);
+		var pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
 
 		if (isFull) {
-			return `${pObj.areaCode}-${pObj.localCode}-${pObj.lineNumber}`;
+			return ((pObj.areaCode) + '-' + (pObj.localCode) + '-' + (pObj.lineNumber));
 		}
 
-		return `${pObj.localCode}-${pObj.lineNumber}`;
+		return ((pObj.localCode) + '-' + (pObj.lineNumber));
 	},
 
 	/**
@@ -93,15 +95,15 @@ const methods = {
 	 * @param  {string} phone Uglified phone string
 	 * @return {string}       Returns the formatted phone string
 	 */
-	normal(phone) {
-		let isFull = (phone.length >= 10);
-		let pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
+	normal: function(phone) {
+		var isFull = (phone.length >= 10);
+		var pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
 
 		if (isFull) {
-			return `(${pObj.areaCode}) ${pObj.localCode}-${pObj.lineNumber}`;
+			return ('(' + (pObj.areaCode) + ') ' + (pObj.localCode) + '-' + (pObj.lineNumber));
 		}
 
-		return `${pObj.localCode}-${pObj.lineNumber}`;
+		return ((pObj.localCode) + '-' + (pObj.lineNumber));
 	},
 
 	/**
@@ -110,15 +112,15 @@ const methods = {
 		* @param  {string} phone Uglified phone string
 		* @return {string}       Returns the formatted phone string
 		*/
-	dotted(phone) {
-		let isFull = (phone.length >= 10);
-		let pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
+	dotted: function(phone) {
+		var isFull = (phone.length >= 10);
+		var pObj = (isFull) ? breakdownFull(phone) : breakdownShort(phone);
 
 		if (isFull) {
-			return `${pObj.areaCode}.${pObj.localCode}.${pObj.lineNumber}`;
+			return ((pObj.areaCode) + '.' + (pObj.localCode) + '.' + (pObj.lineNumber));
 		}
 
-		return `${pObj.localCode}.${pObj.lineNumber}`;
+		return ((pObj.localCode) + '.' + (pObj.lineNumber));
 	},
 
 		/**
@@ -128,16 +130,17 @@ const methods = {
 		* @param {string} format The desired format for the phone number
 		* @return {string}       Returns the formatted phone string
 		*/
-	longDistance(phone, format) {
-		let pObj = breakdownLongDistance(phone);
+	longDistance: function(phone, format) {
+		var pObj = breakdownLongDistance(phone);
+		var formattedPhone = '';
 
 		if (format && format !== 'longDistance') {
-			let formattedPhone = methods[format](`${pObj.areaCode}${pObj.localCode}${pObj.lineNumber}`);
+			formattedPhone = methods[format](((pObj.areaCode) + (pObj.localCode) + (pObj.lineNumber)));
 
-			return `${pObj.countryCode}+${formattedPhone}`;
+			return ((pObj.countryCode) + '+' + formattedPhone);
 		}
 
-		return `${pObj.countryCode}+${pObj.areaCode}-${pObj.localCode}-${pObj.lineNumber}`;
+		return ((pObj.countryCode) + '+' + (pObj.areaCode) + '-' + (pObj.localCode) + '-' + (pObj.lineNumber));
 	},
 
 		/**
@@ -147,16 +150,17 @@ const methods = {
 		* @param {string} format The desired format for the phone number
 		* @return {string}       Returns the formatted phone string
 		*/
-	extension(phone, format) {
-		let pObj = breakdownExtension(phone);
+	extension: function(phone, format) {
+		var pObj = breakdownExtension(phone);
+		var formattedPhone = '';
 
 		if (format && format !== 'extension') {
-			let formattedPhone = methods[format](`${pObj.areaCode}${pObj.localCode}${pObj.lineNumber}`);
+			formattedPhone = methods[format](((pObj.areaCode) + (pObj.localCode) + (pObj.lineNumber)));
 
-			return `${formattedPhone} x ${pObj.extension}`;
+			return (formattedPhone + ' x ' + (pObj.extension));
 		}
 
-		return `${pObj.areaCode}-${pObj.localCode}-${pObj.lineNumber} x ${pObj.extension}`;
+		return ((pObj.areaCode) + '-' + (pObj.localCode) + '-' + (pObj.lineNumber) + ' x ' + (pObj.extension));
 	}
 };
 
@@ -168,11 +172,13 @@ const methods = {
 * @param  {string} exFormat An extra format string used for longDistance and extension format types
 * @return {string}          Returns a the final formatted string
 */
-const formatPhoneNumber = (phone, format, exFormat) => {
+module.exports = function (phone, format, exFormat) {
+	var uglyPhone = '';
+
 	if (!phone) {
 		throw new Error('No Phone provided');
 	}
-	let uglyPhone = methods.uglify(phone.toString());
+	uglyPhone = methods.uglify(phone.toString());
 
 	if (!format) {
 		return uglyPhone;
@@ -180,5 +186,3 @@ const formatPhoneNumber = (phone, format, exFormat) => {
 
 	return methods[format](uglyPhone, exFormat);
 };
-
-module.exports = formatPhoneNumber;
