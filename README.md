@@ -2,6 +2,12 @@
 
 A really simple phone formatting that can handle most (US) formats and basic extension and long distance style phone numbers.
 
+> v1.2.0
+> - Added ability to set methods directly for quicker use of the same method
+> - Added tests for these situations
+> - You can now use phone-prettify as a function call or as a setter to grab methods
+> - Swapped the module public over to github
+
 v1.2.0 - You can now set methods directly to use multiple times (This change wont have any effect on how your currently using the module so don't worry)
 
 ## How-To
