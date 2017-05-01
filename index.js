@@ -1,8 +1,3 @@
-/**
- * @overview Format phone numbers into a nice clean state
- * @author Dustin Hershman
- * @version 1.1.0
- */
 
 /**
  * @module Phone-Prettify
@@ -168,15 +163,24 @@ methods = {
 * Our main initiator
 * @function formatPhoneNumber
 * @param  {string|number} phone    Our custom phone string gets converted to a string if needed
-* @param  {string} format   The main format string to format our phone with
-* @param  {string} exFormat An extra format string used for longDistance and extension format types
+* @param  {string|object} opts   Our options object for format string
+* @param  {string} extension An extra format string used for longDistance and extension format types
 * @return {string}          Returns a the final formatted string
 */
-module.exports = function (phone, format, exFormat) {
+module.exports = function (phone, opts, extension) {
 	var uglyPhone = '';
+	var format = '';
+	var exFormat = '';
 
 	if (!phone) {
-		throw new Error('No Phone provided');
+		throw new TypeError('Expected String, Number or Object but recieved undefined');
+	}
+
+	format = (opts && opts.format) ? opts.format : opts;
+	exFormat = (opts && opts.exFormat) ? opts.exFormat : extension;
+
+	if (typeof phone === 'object') {
+		return methods[phone.format];
 	}
 	uglyPhone = methods.uglify(phone.toString());
 

@@ -2,12 +2,17 @@
 
 A really simple phone formatting that can handle most (US) formats and basic extension and long distance style phone numbers.
 
-v1.1.2 - Removed es6 based code since this module is mainly a front end facing module
+v1.2.0 - You can now set methods directly to use multiple times (This change wont have any effect on how your currently using the module so don't worry)
 
 ## How-To
 ```js
 var pPretty = require('phone-prettify');
+// Using it as a function
 pPretty('phone', 'format');
+// Get the method you want returned to use (uses the format names)
+var dashed = pPretty({format: 'dashed'});
+dashed(phone);
+dashed(phone2);
 ```
 
 ## Formats
@@ -28,18 +33,31 @@ The extra parameter is used only for `extension` and `longDistance` and is compl
 var pPretty = require('phone-prettify');
 var result = pPretty('3334449955', 'dashed');
 // Output: 333-444-9955
+// OR
+var dashed = pPretty({format: 'dashed'});
+var prettyNum = dashed('3334449955');
+// prettyNum: 333-444-9955
 ```
 #### Formatting works with numbers
 ```js
 var pPretty = require('phone-prettify');
 var result = pPretty(3334449955, 'dashed');
 // Output: 333-444-9955
+// OR
+var dashed = pPretty({format: 'dashed'});
+var prettyNum = dashed(3334449955);
+// prettyNum: 333-444-9955
 ```
 #### Formatting a Long distance based phone number:(US)
 ```js
 var pPretty = require('phone-prettify');
 var result = pPretty('13334449955', 'longDistance', 'dashed');
 // Output: 1+333-444-9955
+// OR
+var longDistance = pPretty({format: 'longDistance'});
+var prettyNum = longDistance('13334449955', 'dotted');
+// prettyNum: 1+ 333.444.9955
+// NOTE: the 2nd argument can be any of the format names shown above (besides longDistance obviously)
 ```
 
 #### Formatting an extension based phone number:
@@ -47,4 +65,9 @@ var result = pPretty('13334449955', 'longDistance', 'dashed');
 var pPretty = require('phone-prettify');
 var result = pPretty('33344499558989', 'extension', 'dashed');
 // Output: 333-444-9955 x 8989
+// OR
+var extension = pPretty({format: 'extension'});
+var prettyNum = extension('33344499558989', 'dotted');
+// prettyNum: 333.444.9955 x 8989
+// NOTE: the 2nd argument can be any of the format names shown above (besides longDistance obviously)
 ```
