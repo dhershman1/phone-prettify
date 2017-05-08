@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dhershman1/phone-prettify.svg?branch=master)](https://travis-ci.org/dhershman1/phone-prettify)
+
 # phone-prettify
 
 A really simple phone formatting that can handle most (US) formats and basic extension and long distance style phone numbers.
