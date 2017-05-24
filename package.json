@@ -1,9 +1,10 @@
 {
   "name": "phone-prettify",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Simple phone formatting",
-  "main": "index.js",
+  "main": "dist/phone-prettify.umd.js",
   "scripts": {
+    "prepublish": "rollup -f umd -i index.js -o dist/phone-prettify.umd.js",
     "test": "tape tests/tests.js | tap-spec"
   },
   "repository": {
@@ -24,6 +25,7 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "rollup": "^0.41.6",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.3"
   }
