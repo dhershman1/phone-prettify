@@ -167,7 +167,7 @@ methods = {
 * @param  {string} extension An extra format string used for longDistance and extension format types
 * @return {string}          Returns a the final formatted string
 */
-module.exports = function (phone, opts, extension) {
+export default function phonePrettify(phone, opts, extension) {
 	var uglyPhone = '';
 	var format = '';
 	var exFormat = '';
@@ -189,4 +189,4 @@ module.exports = function (phone, opts, extension) {
 	}
 
 	return methods[format](uglyPhone, exFormat);
-};
+}

@@ -4,7 +4,7 @@
   "description": "Simple phone formatting",
   "main": "dist/phone-prettify.umd.js",
   "scripts": {
-    "prepublish": "rollup -f umd -i index.js -o dist/phone-prettify.umd.js",
+    "prepublish": "rollup -f umd -n phone-prettify -i index.js -o dist/phone-prettify.umd.js",
     "test": "tape tests/tests.js | tap-spec"
   },
   "repository": {

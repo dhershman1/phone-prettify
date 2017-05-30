@@ -1,5 +1,5 @@
 var test = require('tape');
-var pPretty = require('../index.js');
+var pPretty = require('../dist/phone-prettify.umd.js');
 
 test('Should throw an error for no phone', function (t) {
 	t.throws(pPretty, 'No Phone Number/String/Object provided', 'Successfully stopped execution');
