@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.3.0
+> - Code optimizations
+> - Better UMD support
+> - Code cleanup
+> - Updated the README with more info
+> - Module is now transpiled and minified on install
+> - IE9+ Support
+
 ## v1.2.2 & v1.2.3
 > - Added and tweaked UMD support for the module
 
