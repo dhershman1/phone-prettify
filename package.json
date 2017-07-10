@@ -1,13 +1,13 @@
 {
   "name": "phone-prettify",
-  "version": "1.3.0",
-  "description": "Simple phone formatting",
+  "version": "1.4.0",
+  "description": "Silly simple phone formatting",
   "main": "dist/phone-prettify.umd.js",
   "scripts": {
     "prepublish": "rollup -c",
-    "rollup:tests": "rollup -i tests/tests.js -f cjs -o tests/tests.cjs.js -e tape,moment && rollup -c",
+    "rollup:tests": "rollup -i src/tests/tests.js -f cjs -o src/tests/tests.cjs.js -e tape,moment && rollup -c",
     "pretest": "npm run rollup:tests",
-    "test": "tape tests/tests.cjs.js | tap-spec"
+    "test": "tape src/tests/tests.cjs.js | tap-spec"
   },
   "repository": {
     "type": "git",

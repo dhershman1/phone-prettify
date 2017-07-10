@@ -33,6 +33,8 @@ phonePrettify.dashed(phone);
 Each format can convert from each other. for example you can send `dotted` a `dashed` format number and get the `dotted` format back.
 
 - `uglify` - Returns string of entered phone with no formatting
+- `groupTwo` - Groups 8 or 10 character numbers to a `XX XX XX XX` or `XX XX XX XX XX` format
+- `groupFour` - Groups 8 or 10 character numbers to a `XXXX XXXX` or `XX XXXX XXXX` format
 - `normalize` - Returns phone number with `(xxx)xxx-xxxx` format
 - `dashed`  - Returns phone number with `xxx-xxx-xxxx` format
 - `dotted` - Returns phone number with `xxx.xxx.xxxx` format
@@ -56,6 +58,46 @@ import {uglify} from 'phone-prettify';
 
 console.log(uglify('555-444-1111'));
 // Output: 5554441111
+```
+
+### groupTwo(phone)
+
+Groups the number into four or five groups of two
+
+#### Arguments
+
+- `phone` - `String`: the desired phone number to run against
+
+#### Usage
+
+```js
+import {groupTwo} from 'phone-prettify';
+
+console.log(groupTwo('44332211'));
+// Output: 44 33 22 11
+// Also supports 10 character numbers
+console.log(groupTwo('5544332211'));
+// Output: 55 44 33 22 11
+```
+
+### groupFour(phone)
+
+Groups the number into two groups of four, or into one group of two and two groups of four
+
+#### Arguments
+
+- `phone` - `String`: the desired phone number to run against
+
+#### Usage
+
+```js
+import {groupFour} from 'phone-prettify';
+
+console.log(groupFour('44332211'));
+// Output: 4433 2211
+// Also supports 10 character numbers
+console.log(groupFour('5544332211'));
+// Output: 55 4433 2211
 ```
 
 ### normalize(phone)
