@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.5.0
+
+> - Update all dependencies to their latest
+> - Some simple code clean up/optimizations
+> - Instead of throwing an error the app will now return the sent in phone number
+>   - This is why we jumped a main version as this could break someone who is setup to listen for the error
+
 ## v1.4.0
 
 > - `longDistance` now supports country codes of all shapes and sizes

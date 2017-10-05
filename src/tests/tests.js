@@ -1,5 +1,5 @@
+import { dashed, dotted, extensionNumber, groupFour, groupTwo, longDistance, normalize, uglify} from '../index';
 import test from 'tape';
-import {uglify, dashed, dotted, normalize, longDistance, extensionNumber, groupTwo, groupFour} from '../index';
 
 test('Return a uglified phone number', t => {
 	let result = uglify('555-444-1111');
@@ -95,5 +95,13 @@ test('Return an extension format', t => {
 	t.equal(result, '555-444-1111 x 8989', `Returned extension with dashed format: ${result}`);
 	result = extensionNumber('5554441111899', 'dashed');
 	t.equal(result, '555-444-1111 x 899', `Returned extension with dashed format: ${result}`);
+	t.end();
+});
+
+test('Test bad phone number', t => {
+	const result = normalize('85551');
+
+	t.ok(result, 'Results returned okay');
+	t.equal(result, '85551', 'Simply returned the bad number back to the user');
 	t.end();
 });

@@ -4,7 +4,13 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var test = _interopDefault(require('tape'));
 
-const formatCountryCode = (phone) => {
+/**
+ * Format a country code for long distance style numbers
+ * 
+ * @param {String} phone The phone number to format
+ * @returns Returns an array
+ */
+const formatCountryCode = phone => {
 	const len = phone.length;
 	const countryCodeLen = len - 10;
 	const codeReg = new RegExp(`([0-9]{${countryCodeLen}})`);
@@ -12,17 +18,23 @@ const formatCountryCode = (phone) => {
 	let countryCode = uglyCountryCode;
 
 	if (countryCodeLen > 4) {
-		countryCode = `${countryCode.substr(0, 2)}-${countryCode.substr(2, 4)}`;
+		countryCode = `${uglyCountryCode.substr(0, 2)}-${uglyCountryCode.substr(2, 4)}`;
 	}
 
 	if (countryCodeLen === 4) {
-		countryCode = `${countryCode.substr(0, 1)}-${countryCode.substr(1, 3)}`;
+		countryCode = `${uglyCountryCode.substr(0, 1)}-${uglyCountryCode.substr(1, 3)}`;
 	}
 
 	return [countryCode, phone.replace(codeReg, '')];
 };
 
-const getCode = (phone, n) => {
+/**
+ * Format every other piece of the phone number
+ * 
+ * @param {String} phone The phone number to format
+ * @returns Returns an array
+ */
+const formatCode = (phone, n) => {
 	if (!phone) {
 		return ['', false];
 	}
@@ -34,23 +46,24 @@ const getCode = (phone, n) => {
 };
 
 var breakdown = (phone, type) => {
-	const uglyPhone = phone.replace(/[a-z]\w+|\W/ig, '');
+	const uglyPhone = uglify(phone);
 	let countryCode = '';
 	let currPhone = uglyPhone;
+	let areaCode = '';
+	let localCode = '';
 
 	if (type === 'longDistance') {
 		[countryCode, currPhone] = formatCountryCode(uglyPhone);
 	}
-	let areaCode = '';
-	let localCode = '';
 
 	if (uglyPhone.length >= 10) {
-		[areaCode, currPhone] = getCode(currPhone, 3);
+		[areaCode, currPhone] = formatCode(currPhone, 3);
 	}
 
-	[localCode, currPhone] = getCode(currPhone, 3);
+	[localCode, currPhone] = formatCode(currPhone, 3);
 
-	const [lineNumber, extension] = getCode(currPhone, 4);
+	const [lineNumber, extension] = formatCode(currPhone, 4);
+
 
 	return {
 		countryCode,
@@ -65,11 +78,14 @@ var breakdown = (phone, type) => {
  * @module Phone-Prettify
  */
 
-const uglify = (phone) => {
-	return phone.replace(/[a-z]\w+|\W/gi, '');
-};
+const uglify = phone => phone.replace(/[a-z]\w+|\W/gi, '');
 
-const groupTwo = (phone) => {
+const validate = phone => phone && (/^[0-9]{7,}$/).test(uglify(phone));
+
+const groupTwo = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	if (phone.length === 8) {
 		return uglify(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4');
 	}
@@ -77,7 +93,10 @@ const groupTwo = (phone) => {
 	return uglify(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4 $5');
 };
 
-const groupFour = (phone) => {
+const groupFour = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	if (phone.length === 8) {
 		return uglify(phone).replace(/^([0-9]{4})([0-9]{4})$/, '$1 $2');
 	}
@@ -91,14 +110,17 @@ const groupFour = (phone) => {
  * @param  {string} phone Uglified phone string
  * @return {string}       Returns the formatted phone string
  */
-const dashed = (phone) => {
+const dashed = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
 
 	if (areaCode) {
-		return (`${areaCode}-${localCode}-${lineNumber}`);
+		return `${areaCode}-${localCode}-${lineNumber}`;
 	}
 
-	return (`${localCode}-${lineNumber}`);
+	return `${localCode}-${lineNumber}`;
 };
 
 /**
@@ -107,14 +129,17 @@ const dashed = (phone) => {
  * @param  {string} phone Uglified phone string
  * @return {string}       Returns the formatted phone string
  */
-const normalize = (phone) => {
+const normalize = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
 
 	if (areaCode) {
-		return (`(${areaCode}) ${localCode}-${lineNumber}`);
+		return `(${areaCode}) ${localCode}-${lineNumber}`;
 	}
 
-	return (`${localCode}-${lineNumber}`);
+	return `${localCode}-${lineNumber}`;
 };
 
 /**
@@ -123,14 +148,17 @@ const normalize = (phone) => {
 	* @param  {string} phone Uglified phone string
 	* @return {string}       Returns the formatted phone string
 	*/
-const dotted = (phone) => {
+const dotted = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
 
 	if (areaCode) {
-		return (`${areaCode}.${localCode}.${lineNumber}`);
+		return `${areaCode}.${localCode}.${lineNumber}`;
 	}
 
-	return (`${localCode}.${lineNumber}`);
+	return `${localCode}.${lineNumber}`;
 };
 
 const methods = {
@@ -148,6 +176,9 @@ const methods = {
 	* @return {string}       Returns the formatted phone string
 	*/
 const longDistance = (phone, format) => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {countryCode, areaCode, localCode, lineNumber} = breakdown(phone, 'longDistance');
 	const mainNumber = `${areaCode}${localCode}${lineNumber}`;
 	let formattedPhone = dashed(mainNumber);
@@ -156,7 +187,7 @@ const longDistance = (phone, format) => {
 		formattedPhone = methods[format](mainNumber);
 	}
 
-	return (`${countryCode}+${formattedPhone}`);
+	return `${countryCode}+${formattedPhone}`;
 };
 
 	/**
@@ -167,6 +198,9 @@ const longDistance = (phone, format) => {
 	* @return {string}       Returns the formatted phone string
 	*/
 const extensionNumber = (phone, format) => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {extension, areaCode, localCode, lineNumber} = breakdown(phone, 'extension');
 	const mainNumber = `${areaCode}${localCode}${lineNumber}`;
 	let formattedPhone = dashed(mainNumber);
@@ -175,7 +209,7 @@ const extensionNumber = (phone, format) => {
 		formattedPhone = methods[format](mainNumber);
 	}
 
-	return (`${formattedPhone} x ${extension}`);
+	return `${formattedPhone} x ${extension}`;
 };
 
 test('Return a uglified phone number', t => {
@@ -272,5 +306,13 @@ test('Return an extension format', t => {
 	t.equal(result, '555-444-1111 x 8989', `Returned extension with dashed format: ${result}`);
 	result = extensionNumber('5554441111899', 'dashed');
 	t.equal(result, '555-444-1111 x 899', `Returned extension with dashed format: ${result}`);
+	t.end();
+});
+
+test('Test bad phone number', t => {
+	const result = normalize('85551');
+
+	t.ok(result, 'Results returned okay');
+	t.equal(result, '85551', 'Simply returned the bad number back to the user');
 	t.end();
 });

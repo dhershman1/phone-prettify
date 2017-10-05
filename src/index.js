@@ -4,11 +4,14 @@ import breakdown from './breakdown';
  * @module Phone-Prettify
  */
 
-export const uglify = (phone) => {
-	return phone.replace(/[a-z]\w+|\W/gi, '');
-};
+export const uglify = phone => phone.replace(/[a-z]\w+|\W/gi, '');
 
-export const groupTwo = (phone) => {
+const validate = phone => phone && (/^[0-9]{7,}$/).test(uglify(phone));
+
+export const groupTwo = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	if (phone.length === 8) {
 		return uglify(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4');
 	}
@@ -16,7 +19,10 @@ export const groupTwo = (phone) => {
 	return uglify(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4 $5');
 };
 
-export const groupFour = (phone) => {
+export const groupFour = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	if (phone.length === 8) {
 		return uglify(phone).replace(/^([0-9]{4})([0-9]{4})$/, '$1 $2');
 	}
@@ -30,14 +36,17 @@ export const groupFour = (phone) => {
  * @param  {string} phone Uglified phone string
  * @return {string}       Returns the formatted phone string
  */
-export const dashed = (phone) => {
+export const dashed = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
 
 	if (areaCode) {
-		return (`${areaCode}-${localCode}-${lineNumber}`);
+		return `${areaCode}-${localCode}-${lineNumber}`;
 	}
 
-	return (`${localCode}-${lineNumber}`);
+	return `${localCode}-${lineNumber}`;
 };
 
 /**
@@ -46,14 +55,17 @@ export const dashed = (phone) => {
  * @param  {string} phone Uglified phone string
  * @return {string}       Returns the formatted phone string
  */
-export const normalize = (phone) => {
+export const normalize = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
 
 	if (areaCode) {
-		return (`(${areaCode}) ${localCode}-${lineNumber}`);
+		return `(${areaCode}) ${localCode}-${lineNumber}`;
 	}
 
-	return (`${localCode}-${lineNumber}`);
+	return `${localCode}-${lineNumber}`;
 };
 
 /**
@@ -62,14 +74,17 @@ export const normalize = (phone) => {
 	* @param  {string} phone Uglified phone string
 	* @return {string}       Returns the formatted phone string
 	*/
-export const dotted = (phone) => {
+export const dotted = phone => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
 
 	if (areaCode) {
-		return (`${areaCode}.${localCode}.${lineNumber}`);
+		return `${areaCode}.${localCode}.${lineNumber}`;
 	}
 
-	return (`${localCode}.${lineNumber}`);
+	return `${localCode}.${lineNumber}`;
 };
 
 const methods = {
@@ -87,6 +102,9 @@ const methods = {
 	* @return {string}       Returns the formatted phone string
 	*/
 export const longDistance = (phone, format) => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {countryCode, areaCode, localCode, lineNumber} = breakdown(phone, 'longDistance');
 	const mainNumber = `${areaCode}${localCode}${lineNumber}`;
 	let formattedPhone = dashed(mainNumber);
@@ -95,7 +113,7 @@ export const longDistance = (phone, format) => {
 		formattedPhone = methods[format](mainNumber);
 	}
 
-	return (`${countryCode}+${formattedPhone}`);
+	return `${countryCode}+${formattedPhone}`;
 };
 
 	/**
@@ -106,6 +124,9 @@ export const longDistance = (phone, format) => {
 	* @return {string}       Returns the formatted phone string
 	*/
 export const extensionNumber = (phone, format) => {
+	if (!validate(phone)) {
+		return phone;
+	}
 	const {extension, areaCode, localCode, lineNumber} = breakdown(phone, 'extension');
 	const mainNumber = `${areaCode}${localCode}${lineNumber}`;
 	let formattedPhone = dashed(mainNumber);
@@ -114,5 +135,5 @@ export const extensionNumber = (phone, format) => {
 		formattedPhone = methods[format](mainNumber);
 	}
 
-	return (`${formattedPhone} x ${extension}`);
+	return `${formattedPhone} x ${extension}`;
 };

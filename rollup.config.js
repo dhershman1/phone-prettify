@@ -1,13 +1,15 @@
-import uglify from 'rollup-plugin-uglify';
 import buble from 'rollup-plugin-buble';
+import uglify from 'rollup-plugin-uglify';
 
 export default {
-	entry: 'src/index.js',
-	moduleName: 'phonePrettify',
-	format: 'umd',
+	input: 'src/index.js',
+	name: 'phonePrettify',
+	output: {
+		format: 'umd',
+		file: 'dist/phone-prettify.umd.js'
+	},
 	plugins: [
 		buble(),
 		uglify()
-	],
-	dest: 'dist/phone-prettify.umd.js'
+	]
 };
