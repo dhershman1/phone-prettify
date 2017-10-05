@@ -41,6 +41,17 @@ Each format can convert from each other. for example you can send `dotted` a `da
 - `longDistance` - Returns phone number with `x+xxx-xxx-xxxx` format take an optional param to format with different styles
 - `extensionNumber` - Returns phone number with `XXX-XXX-XXXX x XXXX` format takes an optional param to format with different styles
 
+## Return
+
+Each method returns the formatted version of the string passed in. If an improper phone number or a falsey value are passed in, the method will simply return back that value
+
+```js
+import { normalize } from 'phone-prettyify';
+
+console.log(normalize('88551'));
+// Output: '88551'
+```
+
 ## Methods
 
 ### uglify(phone)
