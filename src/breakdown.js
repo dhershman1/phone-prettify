@@ -3,7 +3,7 @@ import { uglify } from './index.js';
 
 /**
  * Format a country code for long distance style numbers
- * 
+ *
  * @param {String} phone The phone number to format
  * @returns Returns an array
  */
@@ -27,7 +27,7 @@ const formatCountryCode = phone => {
 
 /**
  * Format every other piece of the phone number
- * 
+ *
  * @param {String} phone The phone number to format
  * @returns Returns an array
  */
@@ -44,8 +44,8 @@ const formatCode = (phone, n) => {
 
 export default (phone, type) => {
 	const uglyPhone = uglify(phone);
-	let countryCode = '';
 	let currPhone = uglyPhone;
+	let countryCode = '';
 	let areaCode = '';
 	let localCode = '';
 

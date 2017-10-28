@@ -1,6 +1,6 @@
 {
   "name": "phone-prettify",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Silly simple phone formatting library",
   "main": "dist/phone-prettify.umd.js",
   "scripts": {

@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.5.1
+
+> - More unit tests for breakdown added in
+> - Fix for when an extension number is passed in make sure it sanatizes correctly
+
 ## v1.5.0
 
 > - Update all dependencies to their latest

@@ -4,7 +4,7 @@ import breakdown from './breakdown';
  * @module Phone-Prettify
  */
 
-export const uglify = phone => phone.replace(/[a-z]\w+|\W/gi, '');
+export const uglify = phone => phone.replace(/[a-z]\w?|\W/gi, '');
 
 const validate = phone => phone && (/^[0-9]{7,}$/).test(uglify(phone));
 
