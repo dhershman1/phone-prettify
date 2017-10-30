@@ -1,33 +1,36 @@
-import breakdown from './breakdown';
+import _format from './_internals/format/index';
+import _uglify from './_internals/uglify/index';
+import breakdown from './_internals/breakdown/index';
+import isValid from './_internals/isValid/index';
 
 /**
  * @module Phone-Prettify
  */
 
-export const uglify = phone => phone.replace(/[a-z]\w?|\W/gi, '');
+export const uglify = _uglify;
 
-const validate = phone => phone && (/^[0-9]{7,}$/).test(uglify(phone));
+export const format = _format;
 
 export const groupTwo = phone => {
-	if (!validate(phone)) {
+	if (!isValid(phone)) {
 		return phone;
 	}
 	if (phone.length === 8) {
-		return uglify(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4');
+		return _uglify(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4');
 	}
 
-	return uglify(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4 $5');
+	return _uglify(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4 $5');
 };
 
 export const groupFour = phone => {
-	if (!validate(phone)) {
+	if (!isValid(phone)) {
 		return phone;
 	}
 	if (phone.length === 8) {
-		return uglify(phone).replace(/^([0-9]{4})([0-9]{4})$/, '$1 $2');
+		return _uglify(phone).replace(/^([0-9]{4})([0-9]{4})$/, '$1 $2');
 	}
 
-	return uglify(phone).replace(/^([0-9]{2})([0-9]{4})([0-9]{4})$/, '$1 $2 $3');
+	return _uglify(phone).replace(/^([0-9]{2})([0-9]{4})([0-9]{4})$/, '$1 $2 $3');
 };
 
 /**
@@ -37,7 +40,7 @@ export const groupFour = phone => {
  * @return {string}       Returns the formatted phone string
  */
 export const dashed = phone => {
-	if (!validate(phone)) {
+	if (!isValid(phone)) {
 		return phone;
 	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
@@ -56,7 +59,7 @@ export const dashed = phone => {
  * @return {string}       Returns the formatted phone string
  */
 export const normalize = phone => {
-	if (!validate(phone)) {
+	if (!isValid(phone)) {
 		return phone;
 	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
@@ -75,7 +78,7 @@ export const normalize = phone => {
 	* @return {string}       Returns the formatted phone string
 	*/
 export const dotted = phone => {
-	if (!validate(phone)) {
+	if (!isValid(phone)) {
 		return phone;
 	}
 	const {areaCode, localCode, lineNumber} = breakdown(phone);
@@ -88,7 +91,7 @@ export const dotted = phone => {
 };
 
 const methods = {
-	uglify,
+	uglify: _uglify,
 	dashed,
 	dotted,
 	normalize
@@ -101,16 +104,16 @@ const methods = {
 	* @param {string} format The desired format for the phone number
 	* @return {string}       Returns the formatted phone string
 	*/
-export const longDistance = (phone, format) => {
-	if (!validate(phone)) {
+export const longDistance = (phone, oFormat) => {
+	if (!isValid(phone)) {
 		return phone;
 	}
 	const {countryCode, areaCode, localCode, lineNumber} = breakdown(phone, 'longDistance');
 	const mainNumber = `${areaCode}${localCode}${lineNumber}`;
 	let formattedPhone = dashed(mainNumber);
 
-	if (format && format !== 'longDistance' && format !== 'extension') {
-		formattedPhone = methods[format](mainNumber);
+	if (oFormat && oFormat !== 'longDistance' && oFormat !== 'extension') {
+		formattedPhone = methods[oFormat](mainNumber);
 	}
 
 	return `${countryCode}+${formattedPhone}`;
@@ -123,16 +126,16 @@ export const longDistance = (phone, format) => {
 	* @param {string} format The desired format for the phone number
 	* @return {string}       Returns the formatted phone string
 	*/
-export const extensionNumber = (phone, format) => {
-	if (!validate(phone)) {
+export const extensionNumber = (phone, oFormat) => {
+	if (!isValid(phone)) {
 		return phone;
 	}
 	const {extension, areaCode, localCode, lineNumber} = breakdown(phone, 'extension');
 	const mainNumber = `${areaCode}${localCode}${lineNumber}`;
 	let formattedPhone = dashed(mainNumber);
 
-	if (format && format !== 'extension' && format !== 'longDistance') {
-		formattedPhone = methods[format](mainNumber);
+	if (oFormat && oFormat !== 'extension' && oFormat !== 'longDistance') {
+		formattedPhone = methods[oFormat](mainNumber);
 	}
 
 	return `${formattedPhone} x ${extension}`;

@@ -1,5 +1,5 @@
 import { dashed, dotted, extensionNumber, groupFour, groupTwo, longDistance, normalize, uglify } from '../index';
-import breakdown from '../breakdown.js';
+import breakdown from '../_internals/breakdown/index';
 import test from 'tape';
 
 test('Test breakdown normal', t => {

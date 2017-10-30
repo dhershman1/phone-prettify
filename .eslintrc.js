@@ -17,7 +17,7 @@ module.exports = {
 		'array-callback-return': ['error'],
 		'block-scoped-var': ['error'],
 		'class-methods-use-this': ['error'],
-		'complexity': ['error', 3],
+		'complexity': ['error', 4],
 		'consistent-return': ['error'],
 		'curly': ['error', 'multi-line'],
 		'default-case': ['error'],
@@ -111,7 +111,7 @@ module.exports = {
 		'func-names': ['error'],
 		'func-style': ['error'],
 		'indent': ['error', 'tab', {
-			'SwitchCase': 1
+			"SwitchCase": 1
 		}],
 		'key-spacing': ['error'],
 		'keyword-spacing': ['error', {

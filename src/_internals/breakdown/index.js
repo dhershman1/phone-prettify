@@ -1,4 +1,4 @@
-import { uglify } from './index.js';
+import uglify from '../uglify/index.js';
 
 
 /**

@@ -1,1 +1,301 @@
-!function(e,n){"object"==typeof exports&&"undefined"!=typeof module?n(exports):"function"==typeof define&&define.amd?define(["exports"],n):n(e.phonePrettify={})}(this,function(e){"use strict";var n=function(e){var n=e.length-10,r=new RegExp("([0-9]{"+n+"})"),t=e.match(r)[0],o=t;return n>4&&(o=t.substr(0,2)+"-"+t.substr(2,4)),4===n&&(o=t.substr(0,1)+"-"+t.substr(1,3)),[o,e.replace(r,"")]},r=function(e,n){if(!e)return["",!1];var r=new RegExp("([0-9]{"+n+"})");return[e.match(r)[0],e.replace(r,"")]},t=function(e,t){var u=o(e),i=u,a="",l="",c="";if("longDistance"===t){var f;a=(f=n(u))[0],i=f[1]}if(u.length>=10){var d;l=(d=r(i,3))[0],i=d[1]}var s;c=(s=r(i,3))[0],i=s[1];var p=r(i,4);return{countryCode:a,areaCode:l,localCode:c,lineNumber:p[0],extension:p[1]}},o=function(e){return e.replace(/[a-z]\w?|\W/gi,"")},u=function(e){return e&&/^[0-9]{7,}$/.test(o(e))},i=function(e){if(!u(e))return e;var n=t(e),r=n.areaCode,o=n.localCode,i=n.lineNumber;return r?r+"-"+o+"-"+i:o+"-"+i},a=function(e){if(!u(e))return e;var n=t(e),r=n.areaCode,o=n.localCode,i=n.lineNumber;return r?"("+r+") "+o+"-"+i:o+"-"+i},l=function(e){if(!u(e))return e;var n=t(e),r=n.areaCode,o=n.localCode,i=n.lineNumber;return r?r+"."+o+"."+i:o+"."+i},c={uglify:o,dashed:i,dotted:l,normalize:a};e.uglify=o,e.groupTwo=function(e){return u(e)?8===e.length?o(e).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/,"$1 $2 $3 $4"):o(e).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/,"$1 $2 $3 $4 $5"):e},e.groupFour=function(e){return u(e)?8===e.length?o(e).replace(/^([0-9]{4})([0-9]{4})$/,"$1 $2"):o(e).replace(/^([0-9]{2})([0-9]{4})([0-9]{4})$/,"$1 $2 $3"):e},e.dashed=i,e.normalize=a,e.dotted=l,e.longDistance=function(e,n){if(!u(e))return e;var r=t(e,"longDistance"),o=r.countryCode,a=""+r.areaCode+r.localCode+r.lineNumber,l=i(a);return n&&"longDistance"!==n&&"extension"!==n&&(l=c[n](a)),o+"+"+l},e.extensionNumber=function(e,n){if(!u(e))return e;var r=t(e,"extension"),o=r.extension,a=""+r.areaCode+r.localCode+r.lineNumber,l=i(a);return n&&"extension"!==n&&"longDistance"!==n&&(l=c[n](a)),l+" x "+o},Object.defineProperty(e,"__esModule",{value:!0})});
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.phonePrettify = {})));
+}(this, (function (exports) { 'use strict';
+
+var uglify$1 = function (phone) { return phone.replace(/[a-z]\w?|\W/gi, ''); };
+
+/**
+ * Format a country code for long distance style numbers
+ *
+ * @param {String} phone The phone number to format
+ * @returns Returns an array
+ */
+var formatCountryCode = function (phone) {
+	var len = phone.length;
+	var countryCodeLen = len - 10;
+	var codeReg = new RegExp(("([0-9]{" + countryCodeLen + "})"));
+	var ref = phone.match(codeReg);
+	var uglyCountryCode = ref[0];
+	var countryCode = uglyCountryCode;
+
+	if (countryCodeLen > 4) {
+		countryCode = (uglyCountryCode.substr(0, 2)) + "-" + (uglyCountryCode.substr(2, 4));
+	}
+
+	if (countryCodeLen === 4) {
+		countryCode = (uglyCountryCode.substr(0, 1)) + "-" + (uglyCountryCode.substr(1, 3));
+	}
+
+	return [countryCode, phone.replace(codeReg, '')];
+};
+
+/**
+ * Format every other piece of the phone number
+ *
+ * @param {String} phone The phone number to format
+ * @returns Returns an array
+ */
+var formatCode = function (phone, n) {
+	if (!phone) {
+		return ['', false];
+	}
+
+	var codeReg = new RegExp(("([0-9]{" + n + "})"));
+	var ref = phone.match(codeReg);
+	var currCode = ref[0];
+
+	return [currCode, phone.replace(codeReg, '')];
+};
+
+var breakdown = function (phone, type) {
+	var uglyPhone = uglify$1(phone);
+	var currPhone = uglyPhone;
+	var countryCode = '';
+	var areaCode = '';
+	var localCode = '';
+
+	if (type === 'longDistance') {
+		var assign;
+		(assign = formatCountryCode(uglyPhone), countryCode = assign[0], currPhone = assign[1]);
+	}
+
+	if (uglyPhone.length >= 10) {
+		var assign$1;
+		(assign$1 = formatCode(currPhone, 3), areaCode = assign$1[0], currPhone = assign$1[1]);
+	}
+
+	var assign$2;
+	(assign$2 = formatCode(currPhone, 3), localCode = assign$2[0], currPhone = assign$2[1]);
+
+	var ref = formatCode(currPhone, 4);
+	var lineNumber = ref[0];
+	var extension = ref[1];
+
+
+	return {
+		countryCode: countryCode,
+		areaCode: areaCode,
+		localCode: localCode,
+		lineNumber: lineNumber,
+		extension: extension
+	};
+};
+
+var isValid = function (phone) { return phone && (/^[0-9]{7,}$/).test(uglify$1(phone)); };
+
+/**
+ * L = Local Code
+ * A = Area Code
+ * n = Line Number
+ * e = Extension
+ * c = Country Code
+ * Example:
+ *
+ * format(phone, '(AAA)-LLL-nnnn');
+ */
+
+var format$1 = function (layout, num, type) {
+	var letters = {
+		areaCode: 'A',
+		localCode: 'L',
+		lineNumber: 'n',
+		extension: 'e',
+		countryCode: 'c'
+	};
+	var results = layout;
+
+	num.split('').forEach(function (n) {
+		results = results.replace(letters[type], n);
+	});
+
+	return results;
+};
+
+var _format = function (phone, layout, type) {
+	if (!isValid(phone)) {
+		return phone;
+	}
+
+	var uglyPhone = uglify$1(phone);
+	var phoneObj = breakdown(uglyPhone, type);
+	var results = layout;
+
+	for (var prop in phoneObj) {
+		if (phoneObj[prop]) {
+			results = format$1(results, phoneObj[prop], prop);
+		}
+	}
+
+	return results;
+};
+
+/**
+ * @module Phone-Prettify
+ */
+
+var uglify = uglify$1;
+
+var format = _format;
+
+var groupTwo = function (phone) {
+	if (!isValid(phone)) {
+		return phone;
+	}
+	if (phone.length === 8) {
+		return uglify$1(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4');
+	}
+
+	return uglify$1(phone).replace(/^([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})$/, '$1 $2 $3 $4 $5');
+};
+
+var groupFour = function (phone) {
+	if (!isValid(phone)) {
+		return phone;
+	}
+	if (phone.length === 8) {
+		return uglify$1(phone).replace(/^([0-9]{4})([0-9]{4})$/, '$1 $2');
+	}
+
+	return uglify$1(phone).replace(/^([0-9]{2})([0-9]{4})([0-9]{4})$/, '$1 $2 $3');
+};
+
+/**
+ * Formats the string to a dashed style
+ * @function dashed
+ * @param  {string} phone Uglified phone string
+ * @return {string}       Returns the formatted phone string
+ */
+var dashed = function (phone) {
+	if (!isValid(phone)) {
+		return phone;
+	}
+	var ref = breakdown(phone);
+	var areaCode = ref.areaCode;
+	var localCode = ref.localCode;
+	var lineNumber = ref.lineNumber;
+
+	if (areaCode) {
+		return (areaCode + "-" + localCode + "-" + lineNumber);
+	}
+
+	return (localCode + "-" + lineNumber);
+};
+
+/**
+ * Formats the string to a normal style
+ * @function normalize
+ * @param  {string} phone Uglified phone string
+ * @return {string}       Returns the formatted phone string
+ */
+var normalize = function (phone) {
+	if (!isValid(phone)) {
+		return phone;
+	}
+	var ref = breakdown(phone);
+	var areaCode = ref.areaCode;
+	var localCode = ref.localCode;
+	var lineNumber = ref.lineNumber;
+
+	if (areaCode) {
+		return ("(" + areaCode + ") " + localCode + "-" + lineNumber);
+	}
+
+	return (localCode + "-" + lineNumber);
+};
+
+/**
+	* Formats the string to a dotted style
+	* @function dotted
+	* @param  {string} phone Uglified phone string
+	* @return {string}       Returns the formatted phone string
+	*/
+var dotted = function (phone) {
+	if (!isValid(phone)) {
+		return phone;
+	}
+	var ref = breakdown(phone);
+	var areaCode = ref.areaCode;
+	var localCode = ref.localCode;
+	var lineNumber = ref.lineNumber;
+
+	if (areaCode) {
+		return (areaCode + "." + localCode + "." + lineNumber);
+	}
+
+	return (localCode + "." + lineNumber);
+};
+
+var methods = {
+	uglify: uglify$1,
+	dashed: dashed,
+	dotted: dotted,
+	normalize: normalize
+};
+
+	/**
+	* Formats the string to a long distance with a custom format style
+	* @function longDistance
+	* @param  {string} phone Uglified phone string
+	* @param {string} format The desired format for the phone number
+	* @return {string}       Returns the formatted phone string
+	*/
+var longDistance = function (phone, oFormat) {
+	if (!isValid(phone)) {
+		return phone;
+	}
+	var ref = breakdown(phone, 'longDistance');
+	var countryCode = ref.countryCode;
+	var areaCode = ref.areaCode;
+	var localCode = ref.localCode;
+	var lineNumber = ref.lineNumber;
+	var mainNumber = "" + areaCode + localCode + lineNumber;
+	var formattedPhone = dashed(mainNumber);
+
+	if (oFormat && oFormat !== 'longDistance' && oFormat !== 'extension') {
+		formattedPhone = methods[oFormat](mainNumber);
+	}
+
+	return (countryCode + "+" + formattedPhone);
+};
+
+	/**
+	* Formats the string to an extension with a custom format style
+	* @function extension
+	* @param  {string} phone Uglified phone string
+	* @param {string} format The desired format for the phone number
+	* @return {string}       Returns the formatted phone string
+	*/
+var extensionNumber = function (phone, oFormat) {
+	if (!isValid(phone)) {
+		return phone;
+	}
+	var ref = breakdown(phone, 'extension');
+	var extension = ref.extension;
+	var areaCode = ref.areaCode;
+	var localCode = ref.localCode;
+	var lineNumber = ref.lineNumber;
+	var mainNumber = "" + areaCode + localCode + lineNumber;
+	var formattedPhone = dashed(mainNumber);
+
+	if (oFormat && oFormat !== 'extension' && oFormat !== 'longDistance') {
+		formattedPhone = methods[oFormat](mainNumber);
+	}
+
+	return (formattedPhone + " x " + extension);
+};
+
+exports.uglify = uglify;
+exports.format = format;
+exports.groupTwo = groupTwo;
+exports.groupFour = groupFour;
+exports.dashed = dashed;
+exports.normalize = normalize;
+exports.dotted = dotted;
+exports.longDistance = longDistance;
+exports.extensionNumber = extensionNumber;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));

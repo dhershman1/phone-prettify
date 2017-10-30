@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.0
+
+> - New `format` functionality
+>   - This allows for custom formatting on the users end
+
 ## v1.5.1
 
 > - More unit tests for breakdown added in

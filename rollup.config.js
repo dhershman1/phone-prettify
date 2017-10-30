@@ -1,5 +1,5 @@
 import buble from 'rollup-plugin-buble';
-import uglify from 'rollup-plugin-uglify';
+// import uglify from 'rollup-plugin-uglify';
 
 export default {
 	input: 'src/index.js',
@@ -9,7 +9,6 @@ export default {
 		file: 'dist/phone-prettify.umd.js'
 	},
 	plugins: [
-		buble(),
-		uglify()
+		buble()
 	]
 };
