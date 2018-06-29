@@ -1,6 +1,14 @@
 [![Build Status](https://travis-ci.org/dhershman1/phone-prettify.svg?branch=master)](https://travis-ci.org/dhershman1/phone-prettify)
 
+# Important
+
+**This library has been replaced by my new one Phone-Fns which you can find here: https://github.com/dhershman1/phone-fns**
+
+**This library will no longer be maintained since Phone-Fns is the same thing but with more utilities and an optimized code base.**
+
 # phone-prettify
+
+**Please see above**
 
 A simple and light weight phone formatting utility that can handle most (US) formats, basic extension and long distance style phone numbers.
 
@@ -41,33 +49,6 @@ Each format can convert from each other. for example you can send `dotted` a `da
 - `longDistance` - Returns phone number with `x+xxx-xxx-xxxx` format take an optional param to format with different styles
 - `extensionNumber` - Returns phone number with `XXX-XXX-XXXX x XXXX` format takes an optional param to format with different styles
 
-## Custom Formatting
-You can now call just `format` from the module which allows you to submit custom formatting options which follow these rules:
-
-- `A` - Area Code Number
-- `L` - Local Code Number (Usually the first three digits)
-- `N` - Line Number (Usually the last four digits)
-- `E` - Extension Number (Usually an additional set of digits at the end)
-- `C` - Country Code Number (Usually the set of digits that go ahead of a number)
-
-So a use case would be like so:
-
-```js
-import { format } from 'phone-prettify';
-
-// Normal
-format('4443332222', '(AAA) LLL-NNNN');
-// Output: (444) 333-2222
-
-// Long Distance
-format('1124443332222', 'CCC + (AAA)-LLL.NNNN', 'longDistance'); // <-- Notice we have to make sure to tell the module we want a long distance rule ran
-// Output: 112 + (444)-333.2222
-
-// Extensions
-format('44433322228989', '(AAA).LLL.NNNN x EEEE');
-// Output: (444).333.2222 x 8989
-```
-
 ## Return
 
 Each method returns the formatted version of the string passed in. If an improper phone number or a falsey value are passed in, the method will simply return back that value
@@ -96,34 +77,6 @@ import {uglify} from 'phone-prettify';
 
 console.log(uglify('555-444-1111'));
 // Output: 5554441111
-```
-
-### format(phone, format, type)
-
-Customized formatting function allowing you to create your own custom formats
-
-#### Arguments
-
-- `phone` - `String`: The desired phone number to run against
-- `format` - `String`: The desired format to set the number into, see above
-- `type` - `String`: Mainly used for `longDistance` to tell `phone-prettify` to run the number through that check as well
-
-#### Usage
-
-```js
-import { format } from 'phone-prettify';
-
-// Normal
-format('4443332222', '(AAA) LLL-NNNN');
-// Output: (444) 333-2222
-
-// Long Distance
-format('1124443332222', 'CCC + (AAA)-LLL.NNNN', 'longDistance'); // <-- Notice we have to make sure to tell the module we want a long distance rule ran
-// Output: 112 + (444)-333.2222
-
-// Extensions
-format('44433322228989', '(AAA).LLL.NNNN x EEEE');
-// Output: (444).333.2222 x 8989
 ```
 
 ### groupTwo(phone)
